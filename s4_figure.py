@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Dec  6 23:41:15 2025
 
-@author: seung-hwan.kim
-"""
-
-"""
-s4_figure.py
+#s4_figure.py
 
 Generate Supplementary Figure S4:
 OU latent trajectories + branching counts + posterior predictive count PMFs +
