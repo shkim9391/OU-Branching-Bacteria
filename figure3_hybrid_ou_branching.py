@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 24 14:49:39 2025
 
-@author: seung-hwan.kim
-"""
 #figure3_hybrid_ou_branching.py
 
 """
