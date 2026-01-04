@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 24 14:01:45 2025
-
-@author: seung-hwan.kim
-"""
 
 #ou_multifigure_ABCB.py
 
