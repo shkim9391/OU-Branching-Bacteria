@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 24 05:45:31 2025
 
-@author: seung-hwan.kim
-"""
 #publication_ready_ou_visualization_suite.py
 
 import numpy as np
