@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Nov 23 21:24:18 2025
 
-@author: seung-hwan.kim
-"""
 #hierarchical_ou_core_model_pymc.py
 
 """
