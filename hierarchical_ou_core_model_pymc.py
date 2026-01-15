@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-#hierarchical_ou_core_model_pymc.py
-
 """
 Stabilized core hierarchical OU model for mutation frequencies
 in WT, priA, recG E. coli.
@@ -32,8 +27,7 @@ pytensor.config.mode = "FAST_RUN"
 # 1. Load & preprocess data
 # --------------------------------------------------------------------
 data_path = (
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/"
-    "Methodology/mut_freq_data.csv"
+    "/mut_freq_data.csv"
 )
 
 df = pd.read_csv(data_path)
@@ -173,10 +167,10 @@ trace_core.extend(ppc_core)
 
 # ➜ THEN save
 trace_core.to_netcdf(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/trace_core.nc"
+    "/trace_core.nc"
 )
 np.save(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/times.npy",
+    "/times.npy",
     times,
 )
 
