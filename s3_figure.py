@@ -1,4 +1,4 @@
-Generate Supplementary Figure S4:
+Generate Supplementary Figure S3:
 OU latent trajectories + branching counts + posterior predictive count PMFs +
 branching probabilities p(t) for priA, recG, and WT.
 """
@@ -112,8 +112,8 @@ def main():
     # ---------------------------------------------------------
     # 7. Save figure
     # ---------------------------------------------------------
-    fig.savefig("S4_OU_branching.png", dpi=300, bbox_inches="tight")
-    fig.savefig("S4_OU_branching.pdf", dpi=300, bbox_inches="tight")
+    fig.savefig("S3_OU_branching.png", dpi=300, bbox_inches="tight")
+    fig.savefig("S3_OU_branching.pdf", dpi=300, bbox_inches="tight")
     plt.show()
 
 
