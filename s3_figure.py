@@ -1,3 +1,4 @@
+"""
 Generate Supplementary Figure S3:
 OU latent trajectories + branching counts + posterior predictive count PMFs +
 branching probabilities p(t) for priA, recG, and WT.
