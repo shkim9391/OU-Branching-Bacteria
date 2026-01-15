@@ -1,5 +1,5 @@
 """
-Multi-panel OU figure 2 for WT / priA / recG E. coli
+Multi-panel OU Figure 2 for WT / priA / recG E. coli
 
 Panels:
 A. μ (log10 mutation frequency) posterior distributions
