@@ -1,3 +1,13 @@
+"""
+Generate Figure 2 Panels for WT / priA / recG E. coli
+
+Panels:
+A. μ (log10 mutation frequency) posterior distributions
+B. σ (diffusion) posterior distributions
+C. Posterior predictive vs observed density
+D. Hierarchical shrinkage of μ across backgrounds
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
