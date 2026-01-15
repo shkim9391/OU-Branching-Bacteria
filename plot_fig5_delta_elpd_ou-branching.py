@@ -1,4 +1,3 @@
-
 """
 Read ArviZ compare output (model_compare_loo.csv) and generate Figure 5:
 a publication-ready bar plot of ΔELPD (± dSE), ordered RW → OU → OU-Branching.
