@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-#s4_figure.py
-
 Generate Supplementary Figure S4:
 OU latent trajectories + branching counts + posterior predictive count PMFs +
 branching probabilities p(t) for priA, recG, and WT.
