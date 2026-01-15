@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-#ou_multifigure_ABCB.py
-
 """
 Multi-panel OU figure 2 for WT / priA / recG E. coli
 
@@ -22,10 +17,10 @@ import seaborn as sns
 # 0. Load fitted model and metadata
 # -------------------------------------------------------
 trace_core = az.from_netcdf(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/trace_core.nc"
+    "/trace_core.nc"
 )
 times = np.load(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/times.npy"
+    "/times.npy"
 )
 
 bg_names = ["priA", "recG", "wt"]
@@ -128,7 +123,7 @@ plt.show()
 
 # Save high-res version
 fig.savefig(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/ou_multifigure_ABCD.png",
+    "/ou_multifigure_ABCD.png",
     dpi=300,
     bbox_inches="tight",
 )
