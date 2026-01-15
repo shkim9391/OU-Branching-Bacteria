@@ -1,6 +1,6 @@
 """
 Stabilized core hierarchical OU model for mutation frequencies
-in WT, priA, recG E. coli. (Figure 4)
+in WT, priA, recG E. coli to generate Figure 4 and S2 Figure
 
 - Log10-transformed frequencies
 - Hierarchical μ across backgrounds (WT, priA, recG)
