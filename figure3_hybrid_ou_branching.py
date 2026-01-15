@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-#figure3_hybrid_ou_branching.py
-
 """
 Figure 3 — Hybrid OU–Branching: latent OU dynamics + branching (count) layer.
 Uses the Z_latent samples already in trace_core.nc.
@@ -17,10 +12,10 @@ import seaborn as sns
 # Load OU posterior + time grid
 # -------------------------------------------------------
 trace_core = az.from_netcdf(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/trace_core.nc"
+    "/trace_core.nc"
 )
 times = np.load(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/times.npy"
+    "/times.npy"
 )
 
 bg_names = ["priA", "recG", "wt"]
@@ -136,7 +131,7 @@ panel_D(axD)
 
 plt.tight_layout()
 fig.savefig(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/Figure_3/Figure3_Hybrid_OU_Branching.png",
+    "/Figure3_Hybrid_OU_Branching.png",
     dpi=300, bbox_inches="tight")
 
 plt.show()
