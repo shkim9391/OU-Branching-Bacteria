@@ -1,16 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-#publication_ready_ou_visualization_suite.py
-
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import arviz as az
 
 # Load trace and time grid
-trace_core = az.from_netcdf("/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/trace_core.nc")
-times = np.load("/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/times.npy")
+trace_core = az.from_netcdf("/trace_core.nc")
+times = np.load("/times.npy")
 
 bg_names = ["priA", "recG", "wt"]
 colors = {"priA": "#E66100", "recG": "#5D9C59", "wt": "#0072B2"}
@@ -43,10 +38,10 @@ plt.show()
 # -------------------------------------------------------
 
 trace_core = az.from_netcdf(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/trace_core.nc"
+    "/trace_core.nc"
 )
 times = np.load(
-    "/Users/seung-hwan.kim/Desktop/Hierarchical_OU_Branching_Model/Methodology/times.npy"
+    "/times.npy"
 )
 
 bg_names = ["priA", "recG", "wt"]
