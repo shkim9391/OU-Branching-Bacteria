@@ -1,309 +1,409 @@
 # OU_Branching_Bacteria
 
-Code and reproducible analysis for hybrid Ornstein-Uhlenbeck (OU) / OU-Branching modeling of bacterial mutation-frequency dynamics across laboratory *Escherichia coli* strains. The repository includes processed mutation-frequency data, hierarchical PyMC model code, model-comparison scripts, visualization utilities, and manuscript figure-generation workflows.
+Code and reproducible analysis for hybrid Ornstein-Uhlenbeck (OU) / OU-Branching modeling of bacterial mutation-frequency dynamics. This repository contains the core hierarchical PyMC model, downstream visualization scripts, supplementary figure generation, and a separate Figure 5 model-comparison workflow.
+
+All data used in this study consist of bacterial mutation-frequency measurements derived from laboratory strains. All code and processed data are publicly available through this repository. No proprietary datasets or access restrictions apply.
+
+---
 
 ## Overview
 
-This repository accompanies a study of bacterial mutation-frequency dynamics using stochastic evolutionary models. The main goal is to compare constrained mean-reverting dynamics and branching extensions against simpler baselines, and to visualize how these models capture mutation-frequency patterns across strains.
+This repository implements two connected but distinct workflows:
 
-The repository includes:
+1. **Core OU / OU-Branching inference and visualization workflow**  
+   Built from `mut_freq_data.csv` using a hierarchical PyMC model. This branch produces the main posterior trace, time grid, summaries, diagnostics, posterior predictive checks, and downstream figure panels.
 
-- processed mutation-frequency input data,
-- reusable PyMC model code,
-- scripts for fitting OU, OU-Branching, and random-walk baselines,
-- model-comparison outputs based on leave-one-out predictive criteria,
-- figure-generation scripts for main and supplementary manuscript figures,
-- cleaned supplementary table files used in the study.
+2. **Figure 5 model-comparison workflow**  
+   Built from `series_auto.csv` and `patient_group.csv`, this branch fits three competing models:
+   - random walk
+   - OU
+   - OU-Branching  
+   and then compares them using LOO / WAIC-style predictive summaries.
 
-All data used in this study consist of bacterial mutation-frequency measurements derived from laboratory strains. Based on the current repository notes, the strains include *Escherichia coli* WT, PriA, and recG. All code and processed data are publicly available through this repository. No proprietary datasets or access restrictions apply.
+The repository is organized for manuscript reproducibility rather than as a general-purpose software package.
+
+---
 
 ## Repository contents
 
-The repository currently contains the following files:
+### Core scripts
 
-```text
-README.md
-S1_Table_clean.csv
-compare_fig5_models.py
-fig5_common.py
-figure3_hybrid_ou_branching.py
-fit_fig5_ou_branch_nb.py
-fit_fig5_ou_nb.py
-fit_fig5_rw_nb.py
-hierarchical_ou_core_model_pymc.py
-model_compare_loo.csv
-mut_freq_data.csv
-ou_multifigure_ABCB.py
-plot_fig5_delta_elpd_ou-branching.py
-publication_ready_ou_visualization_suite.py
-s3_figure.py
+- `hierarchical_ou_core_model_pymc.py`  
+  Core hierarchical PyMC model. This is the main upstream script for the OU-based bacterial mutation-frequency analysis.
 
-## Scientific focus
+- `ou_multifigure_ABCB.py`  
+  Uses the core posterior outputs to generate the multi-panel Figure 2 composite.
 
-This project studies mutation-frequency trajectories under alternative stochastic models of evolutionary change.
+- `figure3_hybrid_ou_branching.py`  
+  Generates the main Figure 3.
 
-The main modeling ideas are:
-	•	OU model: a mean-reverting stochastic process that captures constrained dynamics around a latent equilibrium or preferred state.
-	•	OU-Branching model: an extension of OU dynamics that allows branch-specific divergence, potentially better capturing heterogeneous evolutionary structure.
-	•	Random-walk baseline: a diffusion-like model without stabilizing pull, used as a simpler comparator.
-	•	Hierarchical Bayesian inference: implemented in PyMC to estimate model parameters, quantify uncertainty, and compare predictive performance across models.
+- `publication_ready_ou_visualization_suite.py`  
+  Produces publication-ready parameter visualizations and posterior summaries, including multiple Figure 2 panels and related trajectory/PPC outputs.
 
-The repository is designed for manuscript reproducibility and figure generation rather than as a packaged software library.
+- `s4_figure.py`  
+  Generates a supplementary OU-Branching figure from the core posterior outputs.
 
-Data files
+- `Supplementary_Information.tex`  
+  Compiles the supplementary PDF using the supplementary figure assets and the cleaned S1 table.
 
-mut_freq_data.csv
+### Figure 5 workflow
 
-Primary processed mutation-frequency dataset used throughout the analysis.
+- `fig5_common.py`  
+  Shared helper utilities for the Figure 5 model-fitting and comparison scripts.
 
-Typical contents likely include:
-	•	strain identifiers,
-	•	mutation or feature identifiers,
-	•	mutation-frequency measurements,
-	•	timepoint or replicate information,
-	•	model-ready values used in fitting and plotting scripts.
+- `fit_fig5_rw_nb.py`  
+  Fits the random-walk baseline model.
 
-This is the main input file for the model-fitting workflows.
+- `fit_fig5_ou_nb.py`  
+  Fits the OU baseline model.
 
-S1_Table_clean.csv
+- `fit_fig5_ou_branch_nb.py`  
+  Fits the OU-Branching model.
 
-Cleaned supplementary table used in the manuscript.
+- `compare_fig5_models.py`  
+  Compares fitted Figure 5 models and exports the model-comparison table.
 
-This file is likely intended as a reader-friendly summary table for reporting processed values, derived summaries, or manuscript-facing metadata.
+- `plot_fig5_delta_elpd_ou-branching.py`  
+  Generates the Figure 5 delta-ELPD plot from the comparison table.
 
-model_compare_loo.csv
+### Data and summary files
 
-Processed model-comparison table, likely containing leave-one-out predictive performance summaries.
+- `mut_freq_data.csv`  
+  Input dataset for the core hierarchical OU model.
 
-Typical contents may include:
-	•	model names,
-	•	ELPD or related predictive criteria,
-	•	standard errors,
-	•	pairwise comparison quantities,
-	•	ranking summaries used in Figure 5 or related analyses.
+- `S1_Table_clean.csv`  
+  Cleaned supplementary table; used in the supplementary information package.
 
-Core model code
+- `model_compare_loo.csv`  
+  Model-comparison output table for the Figure 5 workflow.
 
-hierarchical_ou_core_model_pymc.py
+Additional workflow inputs referenced in the analysis summary:
 
-Core PyMC implementation of the hierarchical OU modeling framework.
+- `series_auto.csv`
+- `patient_group.csv`
 
-This script likely contains:
-	•	reusable model-building functions,
-	•	prior specifications,
-	•	likelihood setup,
-	•	latent-process structure for OU dynamics,
-	•	helper routines shared across multiple fitting scripts.
+---
 
-This file can be viewed as the modeling backbone of the repository.
+## Workflow summary
 
-Model-fitting scripts
+## 1. Core model workflow
 
-fit_fig5_ou_branch_nb.py
+### Step 1. Fit the core hierarchical model
 
-Fits the OU-Branching model used in the Figure 5 comparison workflow.
+```bash
+python hierarchical_ou_core_model_pymc.py
 
-Based on the filename, this script likely uses a negative-binomial or related count-aware observation model layered on top of the OU-Branching latent process. Typical outputs may include posterior summaries, saved fit objects, or comparison-ready metrics.
+Input
+	•	mut_freq_data.csv
 
-fit_fig5_ou_nb.py
+Primary outputs
+	•	trace_core.nc
+	•	times.npy
+	•	az.summary
+	•	MCMC diagnostics
+	•	posterior predictive checks
 
-Fits the non-branching OU model used as a baseline or comparator in Figure 5.
+Role
+	•	core model fit
+	•	upstream source for Figure 2, Figure 3, supplementary figures, and posterior diagnostics
 
-This script likely estimates mean-reverting dynamics without branch-specific divergence, enabling direct comparison with the branching extension.
+⸻
 
-fit_fig5_rw_nb.py
+Step 2. Generate the Figure 2 multi-panel composite
 
-Fits the random-walk baseline model used in Figure 5.
+python ou_multifigure_ABCB.py
 
-This model serves as a simpler comparison point relative to OU-based dynamics and helps assess whether mean reversion and/or branching improve predictive fit.
+Inputs
+	•	trace_core.nc
+	•	times.npy
 
-Comparison and plotting utilities
+Output
+	•	ou_multifigure_ABCD.png
 
-compare_fig5_models.py
+Role
+	•	Figure 2 composite
 
-Compares the fitted models used in Figure 5.
+Note: the script name uses ABCB, while the output in your workflow sheet appears as ou_multifigure_ABCD.png. If that output filename is correct, I would leave a brief note in the repo so readers do not think it is a typo.
 
-Typical responsibilities may include:
-	•	loading outputs from the model-fitting scripts,
-	•	computing pairwise predictive comparisons,
-	•	summarizing differences in expected log predictive density,
-	•	exporting comparison tables for downstream plotting.
+⸻
 
-plot_fig5_delta_elpd_ou-branching.py
+Step 3. Generate Figure 3
 
-Generates Figure 5 or a major Figure 5 panel showing model-comparison results, especially delta-ELPD contrasts involving the OU-Branching model.
+python figure3_hybrid_ou_branching.py
 
-Typical outputs may include:
-	•	bar plots or interval plots of predictive differences,
-	•	manuscript-ready comparison panels,
-	•	labeled summaries for model ranking.
+Inputs
+	•	trace_core.nc
+	•	times.npy
 
-fig5_common.py
+Output
+	•	Figure3_Hybrid_OU_Branching.png
 
-Shared helper functions for the Figure 5 analysis and plotting workflow.
+Role
+	•	Figure 3
 
-This file likely centralizes common tasks such as:
-	•	file loading,
-	•	summary formatting,
-	•	color/style definitions,
-	•	axis labeling,
-	•	repeated transformations used across Figure 5 scripts.
+⸻
 
-Figure-generation scripts
+Step 4. Generate publication-ready parameter visualizations
 
-figure3_hybrid_ou_branching.py
+python publication_ready_ou_visualization_suite.py
 
-Generates the main Figure 3 for the manuscript.
+Inputs
+	•	trace_core.nc
+	•	times.npy
 
-Based on the filename, this script likely visualizes the hybrid OU-Branching framework or its application to the bacterial mutation-frequency data. Possible outputs include conceptual diagrams, trajectory summaries, or model-based visualizations.
+Outputs / panels
+	•	ridgeplot for μ (log10 mutation frequency) → Figure 2A
+	•	ridgeplot for diffusion scale σ → Figure 2B
+	•	ridgeplot for mean-reversion rate θ
+	•	shrinkage plot for μ_bg
+	•	OU trajectories
+	•	posterior predictive checks
+	•	diffusion comparison
 
-ou_multifigure_ABCB.py
+Role
+	•	figure-panel production for the main manuscript, especially Figure 2 and related posterior summaries
 
-Generates a multi-panel OU-related figure, possibly involving multiple strain or condition comparisons.
+Because this script generates several different outputs, it is a good idea to save them into a dedicated figure/output directory if you have not already done so.
 
-The exact meaning of ABCB depends on the manuscript, but this script likely assembles several related panels into a composite output.
+⸻
 
-publication_ready_ou_visualization_suite.py
+Step 5. Generate the supplementary OU-Branching figure
 
-Produces finalized manuscript-quality visualizations.
+python s4_figure.py
 
-This script appears intended to collect, standardize, or export polished figure panels for publication use. It may include formatting refinements, layout logic, or unified plotting functions used across figures.
+Inputs
+	•	trace_core.nc
+	•	times.npy
 
-s3_figure.py
+Outputs
+	•	S4_OU_branching.png
+	•	S4_OU_branching.pdf
 
-Generates Supplementary Figure S3.
+Role
+	•	supplementary figure generation
 
-This script likely produces a manuscript supplement figure used to support the main analysis, such as diagnostics, additional comparisons, or robustness analyses.
+In your workflow sheet, this appears to have been renumbered at some stage. If the final manuscript now calls this S3 rather than S4, update the README to reflect the final journal numbering only.
 
-Typical workflow
+⸻
 
-A typical analysis workflow from the repository root may look like this:
+Step 6. Compile supplementary information
 
-python fit_fig5_ou_branch_nb.py
-python fit_fig5_ou_nb.py
+pdflatex Supplementary_Information.tex
+pdflatex Supplementary_Information.tex
+
+Inputs
+	•	S2_Figure.png
+	•	S3_Figure.png
+	•	S4_Figure.png
+	•	S1_Table_clean.csv
+
+Output
+	•	Supplementary_Information.pdf
+
+Role
+	•	full supplementary information package, including the cleaned complete dataset table
+
+⸻
+
+2. Figure 5 model-comparison workflow
+
+Shared helper script
+	•	fig5_common.py
+
+This script supports the Figure 5 fitting scripts and likely contains shared utilities for:
+	•	data loading
+	•	group ordering
+	•	plotting helpers
+	•	common summary logic
+
+⸻
+
+Step 7. Fit the random-walk baseline
+
 python fit_fig5_rw_nb.py
 
+Inputs
+	•	series_auto.csv
+	•	patient_group.csv
+
+Outputs
+	•	posterior.nc
+	•	posterior_summary.csv
+	•	group_order_used.csv
+	•	loo_waic.csv
+
+⸻
+
+Step 8. Fit the OU baseline
+
+python fit_fig5_ou_nb.py
+
+Inputs
+	•	series_auto.csv
+	•	patient_group.csv
+
+Outputs
+	•	posterior.nc
+	•	posterior_summary.csv
+	•	group_order_used.csv
+	•	loo_waic.csv
+
+⸻
+
+Step 9. Fit the OU-Branching model
+
+python fit_fig5_ou_branch_nb.py
+
+Inputs
+	•	series_auto.csv
+	•	patient_group.csv
+
+Outputs
+	•	posterior.nc
+	•	posterior_summary.csv
+	•	group_order_used.csv
+	•	loo_waic.csv
+
+⸻
+
+Step 10. Compare the three Figure 5 models
+
+python compare_fig5_models.py
+
+Inputs
+	•	out_rw/posterior.nc
+	•	out_ou/posterior.nc
+	•	out_ou_branch/posterior.nc
+
+Output
+	•	model_compare_loo.csv
+
+Role
+	•	integrates fitted model outputs into a single predictive-comparison table
+
+This implies that the three fitting scripts should write results into separate output folders such as:
+
+out_rw/
+out_ou/
+out_ou_branch/
+
+Step 11. Plot the Figure 5 delta-ELPD summary
+
+python plot_fig5_delta_elpd_ou-branching.py
+
+Input
+	•	model_compare_loo.csv
+
+Outputs
+	•	Figure5A_deltaELPD.pdf
+	•	Figure5A_deltaELPD.png
+
+Role
+	•	Figure 5 model-comparison panel
+
+Your workflow sheet also includes plot_fig5A_delta_elpd.py. If that script is no longer in the repository, I would omit it from the public README and keep only the final script name actually present in GitHub.
+
+⸻
+
+End-to-end run order
+
+A typical full run from the repository root is:
+
+python hierarchical_ou_core_model_pymc.py
+python ou_multifigure_ABCB.py
+python figure3_hybrid_ou_branching.py
+python publication_ready_ou_visualization_suite.py
+python s4_figure.py
+
+pdflatex Supplementary_Information.tex
+pdflatex Supplementary_Information.tex
+
+python fit_fig5_rw_nb.py
+python fit_fig5_ou_nb.py
+python fit_fig5_ou_branch_nb.py
 python compare_fig5_models.py
 python plot_fig5_delta_elpd_ou-branching.py
 
-python figure3_hybrid_ou_branching.py
-python ou_multifigure_ABCB.py
-python publication_ready_ou_visualization_suite.py
-python s3_figure.py
+Input/output map
 
-A practical interpretation of the workflow is:
-	1.	fit the competing models,
-	2.	compare their predictive performance,
-	3.	generate the main comparison plots,
-	4.	generate manuscript-quality main and supplementary figures.
+Core analysis branch
+	•	mut_freq_data.csv
+→ hierarchical_ou_core_model_pymc.py
+→ trace_core.nc, times.npy, summaries, diagnostics, PPC
+	•	trace_core.nc + times.npy
+→ ou_multifigure_ABCB.py
+→ Figure 2 composite
+	•	trace_core.nc + times.npy
+→ figure3_hybrid_ou_branching.py
+→ Figure 3
+	•	trace_core.nc + times.npy
+→ publication_ready_ou_visualization_suite.py
+→ Figure 2 panels, trajectories, PPC, diffusion comparison
+	•	trace_core.nc + times.npy
+→ s4_figure.py
+→ supplementary OU-Branching figure
 
-Suggested analysis flow in words
+Figure 5 comparison branch
+	•	series_auto.csv + patient_group.csv
+→ fit_fig5_rw_nb.py
+→ random-walk posterior outputs
+	•	series_auto.csv + patient_group.csv
+→ fit_fig5_ou_nb.py
+→ OU posterior outputs
+	•	series_auto.csv + patient_group.csv
+→ fit_fig5_ou_branch_nb.py
+→ OU-Branching posterior outputs
+	•	out_rw/posterior.nc + out_ou/posterior.nc + out_ou_branch/posterior.nc
+→ compare_fig5_models.py
+→ model_compare_loo.csv
+	•	model_compare_loo.csv
+→ plot_fig5_delta_elpd_ou-branching.py
+→ Figure5A_deltaELPD.pdf, Figure5A_deltaELPD.png
 
-The intended pipeline is approximately:
-	1.	Load the processed mutation-frequency dataset from mut_freq_data.csv.
-	2.	Fit the candidate stochastic models:
-	•	OU-Branching
-	•	OU baseline
-	•	random-walk baseline
-	3.	Summarize model performance using leave-one-out criteria.
-	4.	Compare models using delta-ELPD or related predictive metrics.
-	5.	Generate main and supplementary visualizations for the manuscript.
-	6.	Export cleaned tables and final figure assets.
-
-Typical Python loading examples
-
-Load the processed mutation-frequency data
-
-import pandas as pd
-
-mut = pd.read_csv("mut_freq_data.csv")
-print(mut.head())
-
-Load the cleaned supplementary table
-
-import pandas as pd
-
-s1 = pd.read_csv("S1_Table_clean.csv")
-print(s1.head())
-
-Load the model-comparison summaries
-
-import pandas as pd
-
-loo = pd.read_csv("model_compare_loo.csv")
-print(loo.head())
+⸻
 
 Software environment
 
-This repository is intended to run in Python 3 with a standard scientific Python environment.
-
-A typical environment will likely require:
+This repository is intended to run in Python 3 with a standard scientific Python stack. Typical dependencies include:
 	•	numpy
 	•	pandas
 	•	matplotlib
 	•	scipy
 	•	pymc
 	•	arviz
+	•	xarray
+	•	netCDF4
+	•	openpyxl
 
-Depending on the exact plotting or analysis code, additional packages may also be needed.
+A minimal install might look like:
 
-A simple installation example is:
+pip install numpy pandas matplotlib scipy pymc arviz xarray netCDF4 openpyxl
 
-pip install numpy pandas matplotlib scipy pymc arviz
+If LaTeX compilation is used for the supplement, a working TeX installation is also required.
 
-A conda-based environment is also reasonable:
-
-conda create -n ou-branching-bacteria python=3.11
-conda activate ou-branching-bacteria
-pip install numpy pandas matplotlib scipy pymc arviz
+⸻
 
 Reproducibility notes
+	•	The repository is manuscript-specific.
+	•	The core PyMC model is the upstream dependency for the main posterior-based figures.
+	•	The Figure 5 workflow is a separate comparison pipeline.
+	•	Some figure numbering in the workflow sheet appears to reflect renumbering during manuscript revision; the public README should use only the final journal numbering.
+	•	Exact posterior summaries may vary slightly depending on package versions, random seeds, and MCMC settings.
 
-This repository is intended to be fully reproducible from the processed data and scripts included here.
+For a clean archival release, it is helpful to include:
+	•	requirements.txt or environment.yml
+	•	exact package versions
+	•	final figure numbering after journal submission
+	•	a release tag corresponding to the submission version
 
-Important notes:
-	•	all data used in the study are processed and included in the repository,
-	•	no proprietary or restricted datasets are required,
-	•	the workflow relies on Python-based scripts rather than hidden manual steps,
-	•	figure scripts may assume that model-fitting outputs already exist,
-	•	exact numerical results may vary slightly depending on software versions, random seeds, or MCMC configuration.
-
-For stronger reproducibility, it is recommended to archive:
-	•	the exact repository commit used for manuscript submission,
-	•	the exact package versions used in the Python environment,
-	•	any saved posterior summary files or fit objects generated during the workflow.
-
-Recommended additions
-
-For a cleaner public release, you may want to add:
-	•	requirements.txt
-	•	environment.yml
-	•	.gitignore
-	•	LICENSE
-	•	a figures/ directory for exported outputs
-	•	a short note describing which script generates which manuscript figure
-
-Suggested requirements.txt
-
-numpy
-pandas
-matplotlib
-scipy
-pymc
-arviz
-
-Example figure mapping
-
-A simple figure map could be:
-	•	figure3_hybrid_ou_branching.py → Main Figure 3
-	•	plot_fig5_delta_elpd_ou-branching.py → Main Figure 5 comparison panel
-	•	s3_figure.py → Supplementary Figure S3
-	•	publication_ready_ou_visualization_suite.py → final manuscript-ready visual outputs
+⸻
 
 Data availability
 
-All data used in this study consist of bacterial mutation-frequency measurements derived from laboratory strains (Escherichia coli WT, PriA, and recG). All code and processed data are publicly available through this repository. The full computational workflow, including PyMC scripts, preprocessing routines, and visualization scripts, is reproducible from the repository. No proprietary datasets or restrictions apply.
+All data used in this study consist of bacterial mutation-frequency measurements derived from laboratory strains. All processed data and reproducible code required for the analyses are included in this repository. No proprietary datasets or access restrictions apply.
 
-Contact
+⸻
 
-Author: Seung-Hwan Kim
+Author
+
+Seung-Hwan Kim
