@@ -385,7 +385,6 @@ def panel_d_interpretation(ax, df):
             8.1,
             "normal",
         ),
-        (k_text, 0.29, 7.7, "normal"),
         ("Interpret together with posterior predictive checks.", 0.16, 8.2, "bold"),
     ]
 
@@ -448,7 +447,7 @@ def main():
     )
     fig.tight_layout(rect=[0, 0, 1, 0.965])
 
-    fig.savefig(f"{OUT_PREFIX}.png", dpi=600, bbox_inches="tight")
+    fig.savefig(f"{OUT_PREFIX}.png", dpi=900, bbox_inches="tight")
     fig.savefig(f"{OUT_PREFIX}.pdf", bbox_inches="tight")
     fig.savefig(f"{OUT_PREFIX}.svg", bbox_inches="tight")
 
