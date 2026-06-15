@@ -1,8 +1,3 @@
-"""
-OU latent x with count-coupled mean (branch-like) + NegBin count layer
-Coupling uses deterministic covariate c(t)=log(n(t)+1) interpolated onto x timepoints.
-"""
-
 import argparse
 from pathlib import Path
 from fig5_common import fit_model_and_write
