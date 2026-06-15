@@ -1,7 +1,3 @@
-"""
-OU latent x (exact transition) + NegBin count layer
-"""
-
 import argparse
 from pathlib import Path
 from fig2_common import fit_model_and_write
