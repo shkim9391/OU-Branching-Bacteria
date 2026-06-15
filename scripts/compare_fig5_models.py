@@ -1,7 +1,3 @@
-"""
-Compare three fitted models using ArviZ compare on "loglik_total".
-"""
-
 import argparse
 from pathlib import Path
 import arviz as az
