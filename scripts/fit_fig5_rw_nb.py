@@ -1,7 +1,3 @@
-"""
-Random-walk/diffusion latent x + NegBin count layer
-"""
-
 import argparse
 from pathlib import Path
 from fig5_common import fit_model_and_write
