@@ -240,8 +240,8 @@ def mini_count_layer(ax, x0, y0, w, h):
 
     ax.plot(xs, ys, lw=1.6, zorder=5)
     ax.text(x0 + w * 0.17, y0 + h * 0.53, r"$X_t$", fontsize=8, ha="center")
-    ax.text(x0 + w * 0.50, y0 + h * 0.53,
-            r"$p(t)=\mathrm{logit}^{-1}(X_t)$",
+    ax.text(x0 + w * 0.53, y0 + h * 0.53,
+            r"$p(t)=10^{X_t}$",
             fontsize=7.4, ha="center")
 
     arrow(ax, (x0 + w * 0.46, y0 + h * 0.45),
@@ -261,7 +261,7 @@ def mini_count_layer(ax, x0, y0, w, h):
         ))
 
     ax.text(x0 + w * 0.80, y0 + h * 0.65,
-            r"$Y_t \sim \mathrm{Binomial}(N,p(t))$",
+            r"$\tilde{K}_t \sim \mathrm{Binomial}(N_{\mathrm{eff}},p(t))$",
             fontsize=7.6, ha="center")
     ax.text(x0 + w * 0.78, y0 + h * 0.005,
             "posterior predictive counts",
@@ -465,9 +465,10 @@ def make_figure(output_prefix="Figure1_OU_Branching_workflow_adjusted"):
     )
 
     fig.savefig(f"{output_prefix}.pdf", bbox_inches="tight")
-    fig.savefig(f"{output_prefix}.png", dpi=600, bbox_inches="tight")
+    fig.savefig(f"{output_prefix}.png", dpi=900, bbox_inches="tight")
     fig.savefig(f"{output_prefix}.svg", bbox_inches="tight")
     return fig
+
 
 if __name__ == "__main__":
     make_figure()
